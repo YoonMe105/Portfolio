@@ -1,0 +1,898 @@
+:root {
+  /* CSS variables make colors and spacing reusable across the whole project. */
+  /* Dark (black) mode is the default */
+  --bg: #0d0b0c;
+  --bg-soft: #161214;
+  --surface: #1f1a1c;
+  --surface-light: #2c2528;
+  --text: #f9f1f0;
+  --text-muted: #c9b6ba;
+  --gold: #e2919c;        /* rose-gold accent */
+  --gold-light: #ffb8c6;  /* blush highlight */
+  --on-accent: #1a1214;   /* text on top of accent-colored buttons */
+  --border: rgba(226, 145, 156, 0.22);
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+  --header-bg: rgba(13, 11, 12, 0.72);
+  --header-bg-scrolled: rgba(13, 11, 12, 0.92);
+  --menu-bg: rgba(13, 11, 12, 0.97);
+  --glow: rgba(226, 145, 156, 0.14);
+  --radius: 8px;
+  --container: 1120px;
+  --transition: 0.3s ease;
+}
+
+/* Light mode: same variables, lighter values */
+:root[data-theme="light"] {
+  --bg: #fdf8f7;
+  --bg-soft: #f6ecec;
+  --surface: #ffffff;
+  --surface-light: #f2e3e6;
+  --text: #2b2226;
+  --text-muted: #6b5a5f;
+  --gold: #b4566a;        /* deeper rose so it's readable on white */
+  --gold-light: #96384d;
+  --on-accent: #ffffff;
+  --border: rgba(180, 86, 106, 0.22);
+  --shadow: 0 20px 50px rgba(90, 40, 55, 0.12);
+  --header-bg: rgba(253, 248, 247, 0.75);
+  --header-bg-scrolled: rgba(253, 248, 247, 0.94);
+  --menu-bg: rgba(253, 248, 247, 0.98);
+  --glow: rgba(226, 145, 156, 0.22);
+}
+
+/* Lets the browser match scrollbars and form controls to the theme */
+:root {
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color var(--transition), color var(--transition);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a{
+    color:inherit;
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.container {
+  width: min(100% - 32px, var(--container));
+  margin-inline: auto;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform var(--transition), border-color var(--transition), background var(--transition), color var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--on-accent);
+}
+
+.btn-primary:hover {
+  background: var(--gold-light);
+}
+
+.btn-outline {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+}
+
+.btn-small {
+  min-height: 40px;
+  padding: 0 16px;
+  font-size: 0.9rem;
+}
+
+.header{
+    width: 100%;
+    background: var(--header-bg);
+    border-bottom: 1px solid transparent;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.header.scrolled {
+  border-color: var(--border);
+  background: var(--header-bg-scrolled);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+}
+
+.logo,
+.nav-menu {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  gap: 10px;
+  font-weight: 800;
+}
+
+.logo-letter {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: var(--radius);
+  background: var(--gold);
+  color: var(--on-accent);
+}
+
+.nav-menu {
+  gap: 28px;
+  margin-left: auto;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 24px;
+}
+
+/* Light / dark mode button */
+.theme-toggle {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--gold);
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.theme-toggle:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+  transform: rotate(15deg);
+}
+
+/* Show the sun in dark mode and the moon in light mode */
+.theme-toggle .icon-moon,
+:root[data-theme="light"] .theme-toggle .icon-sun {
+  display: none;
+}
+
+:root[data-theme="light"] .theme-toggle .icon-moon {
+  display: block;
+}
+
+.nav-link {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: color var(--transition);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--gold-light);
+}
+
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  margin: 5px auto;
+  background: var(--text);
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.nav-toggle.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ===== General sections ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+.section {
+  padding: 110px 0;
+  scroll-margin-top: 76px;
+}
+
+.section-alt {
+  background: var(--bg-soft);
+}
+
+.section-heading {
+  margin-bottom: 48px;
+}
+
+.eyebrow {
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  line-height: 1.2;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tags li {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--gold-light);
+  font-size: 0.82rem;
+}
+
+/* ===== Hero ===== */
+.hero {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 140px;
+  background: radial-gradient(circle at 80% 20%, var(--glow), transparent 45%);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: 48px;
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1.1;
+}
+
+.hero-role {
+  margin-top: 8px;
+  color: var(--gold-light);
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 600;
+}
+
+.hero-text {
+  max-width: 520px;
+  margin-top: 20px;
+  color: var(--text-muted);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.socials {
+  display: flex;
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.socials a {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: color var(--transition);
+}
+
+.socials a:hover {
+  color: var(--gold-light);
+}
+
+.hero-visual {
+  position: relative;
+  justify-self: center;
+}
+
+/* Rose-gold outline sitting behind the photo, shifted down and right */
+.hero-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--gold);
+  border-radius: 20px;
+  transform: translate(18px, 18px);
+  transition: transform var(--transition);
+}
+
+.hero-visual:hover::before {
+  transform: translate(10px, 10px);
+}
+
+/* The frame crops the photo; the photo inside is zoomed in around the face */
+.photo-frame {
+  position: relative;  /* keeps the photo above the outline */
+  width: min(360px, 78vw);
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.hero-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.5);
+  transform-origin: 42% 34%;  /* the point to zoom towards (the face) */
+  transition: transform 0.6s ease;
+}
+
+.hero-visual:hover .hero-photo {
+  transform: scale(1.55);
+}
+
+/* Floating cards sit above the photo */
+.floating-card {
+  z-index: 1;
+}
+
+.floating-card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-soft);
+  box-shadow: var(--shadow);
+  line-height: 1.3;
+}
+
+.floating-card strong {
+  color: var(--gold-light);
+  font-size: 1.2rem;
+}
+
+.floating-card span {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.card-top {
+  top: 58%;
+  left: -10%;
+}
+
+.card-bottom {
+  right: -8%;
+  bottom: 6%;
+}
+
+/* ===== About ===== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.about-text p {
+  margin-bottom: 18px;
+  color: var(--text-muted);
+}
+
+.about-text .btn {
+  margin-top: 10px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.stat {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-align: center;
+}
+
+.stat strong {
+  display: block;
+  color: var(--gold);
+  font-size: 2rem;
+}
+
+.stat span {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ===== Skills ===== */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.skill-card {
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: transform var(--transition), border-color var(--transition);
+}
+
+.skill-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+}
+
+.skill-card h3 {
+  margin-bottom: 18px;
+}
+
+/* ===== Projects ===== */
+/* Carousel: a row of cards you can scroll sideways, snapping to each card */
+.carousel {
+  --per-view: 3;      /* how many cards are visible at once */
+  --gap: 24px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: var(--gap);
+  padding: 10px 2px 24px;  /* room for the card hover lift and shadow */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;   /* hide the scrollbar (Firefox) */
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;           /* hide the scrollbar (Chrome, Safari, Edge) */
+}
+
+.carousel-track:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+  border-radius: var(--radius);
+}
+
+.carousel-track .project-card {
+  flex: 0 0 calc((100% - var(--gap) * (var(--per-view) - 1)) / var(--per-view));
+  scroll-snap-align: start;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.carousel-btn {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--gold);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), color var(--transition), opacity var(--transition);
+}
+
+.carousel-btn:hover:not(:disabled) {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: var(--on-accent);
+}
+
+.carousel-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.carousel-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: var(--border);
+  cursor: pointer;
+  transition: width var(--transition), background var(--transition);
+}
+
+.carousel-dot.active {
+  width: 28px;
+  background: var(--gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track {
+    scroll-behavior: auto;
+  }
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+.project-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+}
+
+.project-body p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.project-body .project-type {
+  margin-bottom: -10px;
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.project-links {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+/* ===== Experience ===== */
+.timeline {
+  position: relative;
+  max-width: 720px;
+  padding-left: 32px;
+  list-style: none;
+  border-left: 2px solid var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+/* The dot on the timeline line */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: -41px;
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--bg-soft);
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* Match the dot's ring to the section background */
+.section:not(.section-alt) .timeline-item::before {
+  border-color: var(--bg);
+}
+
+.timeline-date {
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.timeline-item p {
+  color: var(--text-muted);
+}
+
+.timeline-place {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.timeline-points {
+  display: grid;
+  gap: 6px;
+  padding-left: 18px;
+  list-style: disc;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.timeline-points li::marker {
+  color: var(--gold);
+}
+
+/* ===== Contact ===== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+}
+
+.contact-info p {
+  margin-top: 16px;
+  color: var(--text-muted);
+}
+
+.contact-email {
+  display: inline-block;
+  margin-top: 24px;
+  color: var(--gold-light);
+  font-weight: 700;
+  word-break: break-all;
+}
+
+.contact-form {
+  display: grid;
+  gap: 18px;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.contact-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+  resize: vertical;
+  transition: border-color var(--transition);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--gold);
+  outline: none;
+}
+
+.form-status {
+  min-height: 1.5em;
+  color: var(--gold-light);
+  font-size: 0.9rem;
+}
+
+/* ===== Footer ===== */
+.footer {
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+  background: var(--bg-soft);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ===== Scroll reveal animation ===== */
+/* Elements start hidden only when JS is running (the "js" class is added in app.js) */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.js .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .hero-grid,
+  .about-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual {
+    order: -1;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .carousel {
+    --per-view: 2;
+  }
+}
+
+@media (max-width: 960px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  /* Mobile menu slides down under the header */
+  .nav-menu {
+    position: absolute;
+    top: 76px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    background: var(--menu-bg);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity var(--transition), transform var(--transition);
+  }
+
+  .nav-menu.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .nav-menu li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-menu .nav-link {
+    display: block;
+    padding: 12px 0;
+  }
+
+  .section {
+    padding: 80px 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .carousel {
+    --per-view: 1;
+    --gap: 16px;
+  }
+
+  .card-top {
+    left: -4%;
+  }
+
+  .card-bottom {
+    right: -4%;
+  }
+
+  .contact-form {
+    padding: 22px;
+  }
+}
