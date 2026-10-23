@@ -13,13 +13,13 @@
 
     <link href="./css/style.css" rel="stylesheet" type="text/css" />
 
-    <!-- Apply the saved (or system) theme before the page shows, so it doesn't flash -->
+    <!-- Apply the saved theme (light by default) before the page shows, so it doesn't flash -->
     <script>
         (function () {
             var theme = null;
             try { theme = localStorage.getItem("theme"); } catch (e) {}
             if (theme !== "light" && theme !== "dark") {
-                theme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+                theme = "light";
             }
             document.documentElement.setAttribute("data-theme", theme);
         })();
@@ -73,7 +73,7 @@
                 <div class="hero-content reveal">
                     <p class="eyebrow">Hello, I'm</p>
                     <h1 class="hero-title">Yoon Me Me Phyo</h1>
-                    <h2 class="hero-role">Junior Software Engineer | Full-Stack Developer</h2>
+                    <h2 class="hero-role">Software Engineer | Full-Stack Developer</h2>
                     <p class="hero-text">
                         I build full-stack web applications with PHP, Laravel, Python,
                         FastAPI, Django, React and MySQL, from REST APIs and cloud
@@ -92,12 +92,12 @@
 
                 <div class="hero-visual reveal">
                     <div class="photo-frame">
-                        <img src="./assets/img.jpeg" alt="Yoon Me Me Phyo" class="hero-photo" width="960" height="1280">
+                        <img src="./assets/profile.jpg" alt="Yoon Me Me Phyo" class="hero-photo" width="440" height="587">
                     </div>
-                    <div class="floating-card card-top">
+                    <!-- <div class="floating-card card-top">
                         <strong>3.69 CGPA</strong>
                         <span>Software Engineering, APU</span>
-                    </div>
+                    </div> -->
                     <div class="floating-card card-bottom">
                         <strong>Kuala Lumpur</strong>
                         <span>Open to opportunities</span>
@@ -134,8 +134,7 @@
                             I'm especially interested in AI, full-stack development,
                             cloud computing, software architecture and UI/UX engineering.
                         </p>
-                        <!-- Save your resume as assets/cv.pdf for this button to work -->
-                        <a href="./assets/cv.pdf" class="btn btn-primary" download>Download CV</a>
+                        <a href="./assets/cv.pdf" class="btn btn-primary" type="application/pdf" download="Yoon-Me-Me-Phyo-CV.pdf">Download CV</a>
                     </div>
 
                     <div class="stats reveal">
