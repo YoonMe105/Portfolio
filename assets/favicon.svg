@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Same rose-gold "Y" badge as the logo in the header -->
+  <rect width="64" height="64" rx="14" fill="#b4566a"/>
+  <path d="M19 15 L32 33 L45 15 M32 33 V50" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
